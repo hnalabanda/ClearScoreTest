@@ -1,0 +1,14 @@
+{
+  "name": "cstest",
+  "version": "1.0.0",
+  "description": "cs test",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules\\.bin\\cypress run"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^3.7.0"
+  }
+}

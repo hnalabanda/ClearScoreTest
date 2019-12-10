@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "5d71cfde-c8ff-4e45-9f93-f4246ab2022f",
+		"name": "ClearScoreCollection",
+		"description": "This contains a Postman test to \r\nsimulate and test a failed login attempted on the\r\nClearScore website",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1f24062d-26a6-4167-92ea-e00003493859",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"The error is access denied\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.error).to.eql(\"access_denied\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3ee9e972-85a3-44e4-be54-757fb0d263bb",
+						"exec": [
+							"var uuid = require('uuid');\r",
+							"postman.setEnvironmentVariable('guid', uuid.v4());\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"response_type\": \"code\",\n    \"client_type\": \"internal\",\n    \"client_id\": \"cs-webapp\",\n    \"device_id\": \"1123a602eca57a4de0cf308b6db1yyy\",\n    \"device_type\": \"desktop_windows\",\n    \"device_name\": \"Windows Chrome\",\n    \"email\": \"hn@gmail.com\",\n    \"password\": \"Test\",\n    \"anonymous_id\": \"{{guid}}\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://app.clearscore.com/api/global/login-service/v3/authorise",
+					"protocol": "https",
+					"host": [
+						"app",
+						"clearscore",
+						"com"
+					],
+					"path": [
+						"api",
+						"global",
+						"login-service",
+						"v3",
+						"authorise"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
